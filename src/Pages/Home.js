@@ -6,11 +6,9 @@ import AddForm from "../components/AddForm";
 
 const Home = () => {
   return (
-    <div>
+    <div className="w-5/6">
       <Banniere />
-      <div className="flex items-center justify-center flex-col pb-6">
-        <AddForm />
-      </div>
+      <AddForm />
     </div>
   );
 };

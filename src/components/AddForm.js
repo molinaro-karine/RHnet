@@ -1,16 +1,62 @@
-import React from "react";
-//import "./styles/main.css";
+//libraries
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { add } from "../redux/employeeSlice";
+
+//components
+import DatePickerComponent from "./DatePicker";
+
+import { departments, states } from "../data/dataStates";
 
 const AddForm = () => {
+  // change structure of state options object to make it work with dropdown
+  const statesToUse = states.map((state) => {
+    return {
+      value: state.abbreviation,
+      label: state.name,
+    };
+  });
+
+  const [resetFormKey, setResetFormKey] = useState(true);
+  const dispatch = useDispatch();
+
+  const initialEmployeeInfo = {
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    startDate: "",
+    street: "",
+    city: "",
+    state: statesToUse[0].value,
+    zipCode: "",
+    department: departments[0].value,
+  };
+  const [employeeInfo, setEmployeeInfo] = useState(initialEmployeeInfo);
+
+  const handleDateChange = (selectedDate, name) => {
+    setEmployeeInfo({ ...employeeInfo, [name]: selectedDate });
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(add({ ...employeeInfo, id: new Date().getTime() }));
+
+    setEmployeeInfo(initialEmployeeInfo);
+    setResetFormKey(!resetFormKey);
+  };
+
   return (
     <div>
       <div className="mt-10 sm:mt-0 w-full">
         <div className="md:grid md:grid-cols-1 md:gap-6">
           <div className="mt-5 md:col-span-2 md:mt-0">
-            <form action="#" method="POST">
+            <form
+              id="create-employee"
+              onSubmit={handleSubmit}
+              key={resetFormKey}
+            >
               <div className="overflow-hidden shadow sm:rounded-md">
                 <div className="bg-white px-4 py-5 sm:p-6">
-                  <div className="grid grid-cols-6 gap-6 w-80">
+                  <div className="grid grid-cols-6 gap-6 w-4/5	">
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="first-name"
@@ -50,6 +96,14 @@ const AddForm = () => {
                       >
                         Date of Birth
                       </label>
+                      <DatePickerComponent
+                        id="date-of-birth"
+                        name="dateOfBirth"
+                        onChange={(selectedDate) =>
+                          handleDateChange(selectedDate, "dateOfBirth")
+                        }
+                        value={employeeInfo.dateOfBirth}
+                      />
                       <input
                         type="text"
                         name="date-of-birth"
@@ -58,6 +112,7 @@ const AddForm = () => {
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
+
                     <div className="col-span-6 sm:col-span-4">
                       <label
                         htmlFor="start-date"
@@ -65,6 +120,14 @@ const AddForm = () => {
                       >
                         Start Date
                       </label>
+                      <DatePickerComponent
+                        id="start-date"
+                        name="startDate"
+                        onChange={(selectedDate) =>
+                          handleDateChange(selectedDate, "startDate")
+                        }
+                        value={employeeInfo.startDate}
+                      />
                       <input
                         type="text"
                         name="stat-date"

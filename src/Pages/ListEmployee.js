@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Table from "../components/Table";
 
 const ListEmployee = () => {
   return (
@@ -7,6 +8,7 @@ const ListEmployee = () => {
       <h1 className="employee-title title">Current Employees</h1>
 
       <div className="home">
+        <Table />
         <Link to={"/"} className="link">
           Home
         </Link>
