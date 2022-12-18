@@ -1,14 +1,18 @@
-import React, { memo } from "react";
+import React from "react";
 import logo from "../assets/logo.svg";
 
-const Logo = memo(() => {
+const Logo = () => {
   return (
     <div>
       <div className="flex lg:min-w-0 lg:flex-1 mt-12" aria-label="Global">
-        <img className="main-nav-logo-image" src={logo} alt="logo" />
+        <img
+          className="main-nav-logo-image w-[80px] h-[80px] 	"
+          src={logo}
+          alt="logo"
+        />
       </div>
     </div>
   );
-});
+};
 
 export default Logo;
