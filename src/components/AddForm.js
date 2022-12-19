@@ -7,9 +7,10 @@ import { add } from "../redux/employeeSlice";
 import DatePickerComponent from "./DatePicker";
 
 import { departments, states } from "../data/dataStates";
+import SelectForm from "./SelectForm";
 
 const AddForm = () => {
-  // change structure of state options object to make it work with dropdown
+  // change structure of state options object to make it work with select
   const statesToUse = states.map((state) => {
     return {
       value: state.abbreviation,
@@ -33,15 +34,29 @@ const AddForm = () => {
   };
   const [employeeInfo, setEmployeeInfo] = useState(initialEmployeeInfo);
 
-  const handleDateChange = (selectedDate, name) => {
-    setEmployeeInfo({ ...employeeInfo, [name]: selectedDate });
+  const handleChange = (event) => {
+    setEmployeeInfo({
+      ...employeeInfo,
+      [event.target.name]: event.target.value,
+    });
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(add({ ...employeeInfo, id: new Date().getTime() }));
 
     setEmployeeInfo(initialEmployeeInfo);
     setResetFormKey(!resetFormKey);
+  };
+
+  const handleStateOptionChange = (newSelection) => {
+    setEmployeeInfo({ ...employeeInfo, state: newSelection });
+  };
+  const handleDepartmentOptionChange = (newSelection) => {
+    setEmployeeInfo({ ...employeeInfo, department: newSelection });
+  };
+  const handleDateChange = (selectedDate, name) => {
+    setEmployeeInfo({ ...employeeInfo, [name]: selectedDate });
   };
   return (
     <form id="create-employee" onSubmit={handleSubmit} key={resetFormKey}>
@@ -54,38 +69,37 @@ const AddForm = () => {
             First name
           </label>
           <input
+            className="formInputs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
             type="text"
-            name="first-name"
             id="first-name"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="John"
-            required
+            name="firstName"
+            value={employeeInfo.firstName}
+            onChange={(e) => handleChange(e)}
           />
         </div>
         <div>
           <label
-            or="last_name"
+            htmlFor="last_name"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             Last name
           </label>
           <input
+            className="formInputs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
             type="text"
-            name="last-name"
             id="last-name"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Doe"
-            required
+            name="last-name"
+            value={employeeInfo.lastName}
+            onChange={(e) => handleChange(e)}
           />
         </div>
         <div>
           <label
-            htmlFor="company"
+            htmlFor="date-of-birth"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             Date of Birth
           </label>
-
           <DatePickerComponent
             id="date-of-birth"
             name="dateOfBirth"
@@ -97,7 +111,7 @@ const AddForm = () => {
         </div>
         <div>
           <label
-            htmlFor="phone"
+            htmlFor="start-date"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             Start Date
@@ -113,19 +127,18 @@ const AddForm = () => {
         </div>
         <div>
           <label
-            htmlFor="street-address"
+            htmlFor="street"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             Adress
           </label>
           <input
+            className="formInputs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
             type="text"
-            name="street-address"
-            id="street-address"
-            autoComplete="street-address"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="flowbite.com"
-            required
+            id="street"
+            name="street"
+            value={employeeInfo.street}
+            onChange={(e) => handleChange(e)}
           />
         </div>
         <div>
@@ -136,49 +149,44 @@ const AddForm = () => {
             City
           </label>
           <input
+            className="formInputs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
             type="text"
-            name="city"
             id="city"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder=""
-            required
+            name="city"
+            value={employeeInfo.city}
+            onChange={(e) => handleChange(e)}
           />
         </div>
       </div>
       <div className="mb-6">
         <label
-          htmlFor="country"
+          htmlFor="state"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
         >
           State
         </label>
-        <select
+        <SelectForm
+          options={statesToUse}
+          onChange={handleStateOptionChange}
+          value={employeeInfo.state}
           id="state"
           name="state"
-          autoComplete="state-name"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="john.doe@company.com"
-          required
-        >
-          <option>United States</option>
-          <option>Canada</option>
-          <option>Mexico</option>
-        </select>
+        />
       </div>
       <div className="mb-6">
         <label
-          htmlFor="postal-code"
+          htmlFor="zip-code"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
         >
           ZIP / Postal
         </label>
         <input
-          type="text"
-          name="postal-code"
-          id="postal-code"
-          autoComplete="postal-code"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          required
+          className="formInputs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+          id="zip-code"
+          name="zipCode"
+          type="number"
+          value={employeeInfo.zipCode}
+          onChange={(e) => handleChange(e)}
         />
       </div>
       <div className="mb-6">
@@ -188,17 +196,12 @@ const AddForm = () => {
         >
           Department
         </label>
-        <select
+        <SelectForm
+          options={departments}
+          onChange={handleDepartmentOptionChange}
           id="department"
-          name="coudepartmentntry"
-          autoComplete="department-name"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          required
-        >
-          <option>Sales</option>
-          <option>Canada</option>
-          <option>Mexico</option>
-        </select>
+          name="department"
+        />
       </div>
       <div className="flex justify-end mt-14 mb-6">
         <div className="flex items-center h-5">
