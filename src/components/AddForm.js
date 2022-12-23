@@ -5,6 +5,7 @@ import { add } from "../redux/employeeSlice";
 
 //components
 import DatePickerComponent from "./DatePicker";
+import Modal from "./Modal";
 
 import { departments, states } from "../data/dataStates";
 import SelectForm from "./SelectForm";
@@ -18,7 +19,9 @@ const AddForm = () => {
     };
   });
 
+  const [isVisibleModal, setisVisibleModal] = useState(false);
   const [resetFormKey, setResetFormKey] = useState(true);
+
   const dispatch = useDispatch();
 
   const initialEmployeeInfo = {
@@ -44,7 +47,7 @@ const AddForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(add({ ...employeeInfo, id: new Date().getTime() }));
-
+    setisVisibleModal(true);
     setEmployeeInfo(initialEmployeeInfo);
     setResetFormKey(!resetFormKey);
   };
@@ -58,6 +61,7 @@ const AddForm = () => {
   const handleDateChange = (selectedDate, name) => {
     setEmployeeInfo({ ...employeeInfo, [name]: selectedDate });
   };
+
   return (
     <form id="create-employee" onSubmit={handleSubmit} key={resetFormKey}>
       <div className="grid gap-6 mb-6 lg:grid-cols-2">
@@ -88,7 +92,7 @@ const AddForm = () => {
             className="formInputs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
             type="text"
             id="last-name"
-            name="last-name"
+            name="lastName"
             value={employeeInfo.lastName}
             onChange={(e) => handleChange(e)}
           />
@@ -207,10 +211,15 @@ const AddForm = () => {
         <div className="flex items-center h-5">
           <button
             type="submit"
-            className="inline-flex justify-center rounded-md border border-transparent bg-lime-700 py-2 px-4 text-sm font-medium text-white shadow-sm ring-lime-700 hover:bg-lime-500 hover:ring-lime-500 focus:ring-offset-2"
+            className="modal-toggle inline-block rounded-lg bg-lime-700 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-lime-700 hover:bg-lime-500 hover:ring-lime-500"
           >
             Save
           </button>
+          <Modal
+            isVisible={isVisibleModal}
+            message={"Employee Created!"}
+            handleClose={() => setisVisibleModal(false)}
+          />
         </div>
       </div>
     </form>

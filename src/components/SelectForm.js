@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Select from "react-select";
+import React from "react";
 
 export default function SelectForm(props) {
   const [selection, setSelection] = useState(props.options[0]);

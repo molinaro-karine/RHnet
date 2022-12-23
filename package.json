@@ -1,5 +1,5 @@
 {
-  "name": "tailwind-test",
+  "name": "hrnet",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,6 +15,7 @@
     "react-router-dom": "^6.4.5",
     "react-scripts": "^5.0.1",
     "react-select": "^5.7.0",
+    "s-component-modal": "^0.1.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -43,6 +44,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-syntax-jsx": "^7.18.6",
+    "@babel/preset-react": "^7.18.6",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.20",
     "postcss-cli": "^10.1.0",

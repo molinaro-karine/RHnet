@@ -16,7 +16,7 @@ const ListEmployee = () => {
               to="/"
               className="inline-block rounded-lg bg-lime-700 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-lime-700 hover:bg-lime-500 hover:ring-lime-500"
             >
-              &larr;return to home
+              &larr;return home
               <span className="text-indigo-200" aria-hidden="true"></span>
             </Link>
           </div>
