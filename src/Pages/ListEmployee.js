@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
+import TableEmployee from "../components/TableEmployee";
+//import TableTest from "../components/TableTest";
 
 const ListEmployee = () => {
   return (
@@ -21,8 +23,8 @@ const ListEmployee = () => {
             </Link>
           </div>
         </div>
-        <div className="drop-shadow max-w-2xl mx-auto rounded-md border border-transparent bg-white	mt-8 p-16 ">
-          Table
+        <div className="flex justify-center mt-8">
+          <TableEmployee />
         </div>
       </div>
     </>

@@ -1,7 +1,7 @@
 export const mockData = [
   {
     firstName: "Salvador Gilliam",
-    fastName: "Cairo Velasquez",
+    lastName: "Cairo Velasquez",
     startDate: "09.13.22",
     address: "Ap #540-9813 Odio Rd.",
     city: "Strausberg",
