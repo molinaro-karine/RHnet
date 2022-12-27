@@ -23,8 +23,14 @@ const ListEmployee = () => {
             </Link>
           </div>
         </div>
-        <div className="flex justify-center mt-8">
-          <TableEmployee />
+        <div className="flex flex-col">
+          <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+            <div className="py-2 inline-block w-full sm:px-6 lg:px-8  ">
+              <div className="overflow-hidden">
+                <TableEmployee />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

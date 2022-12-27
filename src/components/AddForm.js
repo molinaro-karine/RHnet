@@ -20,7 +20,6 @@ const AddForm = () => {
   });
 
   const [isVisibleModal, setisVisibleModal] = useState(false);
-  const [resetFormKey, setResetFormKey] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -49,7 +48,6 @@ const AddForm = () => {
     dispatch(add({ ...employeeInfo, id: new Date().getTime() }));
     setisVisibleModal(true);
     setEmployeeInfo(initialEmployeeInfo);
-    setResetFormKey(!resetFormKey);
   };
 
   const handleStateOptionChange = (newSelection) => {
@@ -63,7 +61,7 @@ const AddForm = () => {
   };
 
   return (
-    <form id="create-employee" onSubmit={handleSubmit} key={resetFormKey}>
+    <form id="create-employee" onSubmit={handleSubmit}>
       <div className="grid gap-6 mb-6 lg:grid-cols-2">
         <div>
           <label

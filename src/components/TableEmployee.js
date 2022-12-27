@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 
 //components
 import SelectForm from "./SelectForm";
+import "../index.css";
 
 //styles
 //import "./table.css";
@@ -150,7 +151,9 @@ const TableComponent = () => {
           />
         </div>
       </div>
+
       <Table
+        className="min-w-full"
         data={data}
         sort={sort}
         theme={theme}
