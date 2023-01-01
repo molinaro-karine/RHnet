@@ -1,16 +1,27 @@
 //libraries
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import { add } from "../redux/employeeSlice";
 
 //components
 import DatePickerComponent from "./DatePicker";
 import Modal from "./Modal";
-
-import { departments, states } from "../data/dataStates";
+import { registerSchema } from "./schema/formSchema";
 import SelectForm from "./SelectForm";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { departments, states } from "../data/dataStates";
+import DatePickerOfBirth from "./DatePickerOfBirth";
 
 const AddForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(registerSchema),
+  });
+
   // change structure of state options object to make it work with select
   const statesToUse = states.map((state) => {
     return {
@@ -20,6 +31,7 @@ const AddForm = () => {
   });
 
   const [isVisibleModal, setisVisibleModal] = useState(false);
+  const [resetFormKey, setResetFormKey] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -43,11 +55,12 @@ const AddForm = () => {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const formSubmitHandler = () => {
     dispatch(add({ ...employeeInfo, id: new Date().getTime() }));
     setisVisibleModal(true);
     setEmployeeInfo(initialEmployeeInfo);
+    setResetFormKey(!resetFormKey);
+    console.log(resetFormKey);
   };
 
   const handleStateOptionChange = (newSelection) => {
@@ -61,7 +74,11 @@ const AddForm = () => {
   };
 
   return (
-    <form id="create-employee" onSubmit={handleSubmit}>
+    <form
+      id="create-employee"
+      onSubmit={handleSubmit(formSubmitHandler)}
+      key={resetFormKey}
+    >
       <div className="grid gap-6 mb-6 lg:grid-cols-2">
         <div>
           <label
@@ -71,6 +88,7 @@ const AddForm = () => {
             First name
           </label>
           <input
+            {...register("firstName")}
             className="formInputs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
             type="text"
             id="first-name"
@@ -78,6 +96,11 @@ const AddForm = () => {
             value={employeeInfo.firstName}
             onChange={(e) => handleChange(e)}
           />
+          {errors.firstName ? (
+            <span className="text-red-900">{errors.firstName.message}</span>
+          ) : (
+            <></>
+          )}
         </div>
         <div>
           <label
@@ -87,6 +110,7 @@ const AddForm = () => {
             Last name
           </label>
           <input
+            {...register("lastName")}
             className="formInputs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
             type="text"
             id="last-name"
@@ -94,6 +118,11 @@ const AddForm = () => {
             value={employeeInfo.lastName}
             onChange={(e) => handleChange(e)}
           />
+          {errors.lastName ? (
+            <span className="text-red-900">{errors.lastName.message}</span>
+          ) : (
+            <></>
+          )}
         </div>
         <div>
           <label
@@ -102,7 +131,7 @@ const AddForm = () => {
           >
             Date of Birth
           </label>
-          <DatePickerComponent
+          <DatePickerOfBirth
             id="date-of-birth"
             name="dateOfBirth"
             onChange={(selectedDate) =>
@@ -110,6 +139,11 @@ const AddForm = () => {
             }
             value={employeeInfo.dateOfBirth}
           />
+          {errors.dateOfBirth ? (
+            <span className="text-red-900">{errors.dateOfBirth.message}</span>
+          ) : (
+            <></>
+          )}
         </div>
         <div>
           <label
@@ -132,9 +166,10 @@ const AddForm = () => {
             htmlFor="street"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
-            Adress
+            Address
           </label>
           <input
+            {...register("street")}
             className="formInputs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
             type="text"
             id="street"
@@ -142,6 +177,11 @@ const AddForm = () => {
             value={employeeInfo.street}
             onChange={(e) => handleChange(e)}
           />
+          {errors.street ? (
+            <span className="text-red-900">{errors.street.message}</span>
+          ) : (
+            <></>
+          )}
         </div>
         <div>
           <label
@@ -151,6 +191,7 @@ const AddForm = () => {
             City
           </label>
           <input
+            {...register("city")}
             className="formInputs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
             type="text"
             id="city"
@@ -158,6 +199,11 @@ const AddForm = () => {
             value={employeeInfo.city}
             onChange={(e) => handleChange(e)}
           />
+          {errors.city ? (
+            <span className="text-red-900">{errors.city.message}</span>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <div className="mb-6">
@@ -183,13 +229,20 @@ const AddForm = () => {
           ZIP / Postal
         </label>
         <input
+          {...register("zipCode")}
           className="formInputs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           id="zip-code"
           name="zipCode"
           type="number"
+          //pattern="(/^\d{5}(?:[-\s]\d{4})?$/)"
           value={employeeInfo.zipCode}
           onChange={(e) => handleChange(e)}
         />
+        {errors.zipCode ? (
+          <span className="text-red-900">{errors.zipCode.message}</span>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="mb-6">
         <label

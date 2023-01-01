@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AddForm from "../components/AddForm";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 const Home = () => {
@@ -27,6 +28,7 @@ const Home = () => {
         <div className="drop-shadow max-w-2xl mx-auto rounded-md border border-transparent bg-white	mt-2 p-16 ">
           <AddForm />
         </div>
+        <Footer />
       </div>
     </>
   );

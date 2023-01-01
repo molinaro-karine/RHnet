@@ -19,11 +19,8 @@ import { useSelector } from "react-redux";
 
 //components
 import SelectForm from "./SelectForm";
-import "../index.css";
-
 //styles
-//import "./table.css";
-
+import "./tableEmployee.css";
 const TableComponent = () => {
   const employeeList = useSelector((state) => state.employee.list);
 
@@ -123,6 +120,12 @@ const TableComponent = () => {
   return (
     <div>
       <div className="mb-10">
+        <div className="pagination-select mb-20">
+          <SelectForm
+            options={paginationSizeOptions}
+            onChange={pagination.fns.onSetSize}
+          />
+        </div>
         <label className="sr-only" htmlFor="search">
           Search:
         </label>
@@ -209,25 +212,26 @@ const TableComponent = () => {
         )}
       </Table>
       <div
-        className="pagination-bar"
+        className="pagination-bar relative"
+        /* A style object. */
         style={{ display: "flex", justifyContent: "space-between" }}
       >
-        <span>
+        <span className="mt-10 mb-10 px-3 py-2 ml-0 leading-tight text-white-500  border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
           Showing {showingFrom} to {showingTo} entries:{data.nodes.length}
         </span>
-        <span className="next-and-previous">
+        <span className="next-and-previous mr-5">
           <button
             type="button"
-            className="button button-pagination"
+            className="mt-10 mb-10 px-3 py-2 ml-0 leading-tight text-white-500  border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white w-32"
             disabled={data.nodes.length === 0 || pagination.state.page === 0}
             onClick={() => pagination.fns.onSetPage(pagination.state.page - 1)}
           >
             {"Previous"}
           </button>
-          <span>{` ${pagination.state.page + 1} `}</span>
+          <span className="grid px-4">{` ${pagination.state.page + 1} `}</span>
           <button
             type="button"
-            className="button button-pagination"
+            className="button button-pagination px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white w-32"
             disabled={
               data.nodes.length === 0 ||
               pagination.state.page + 1 ===
@@ -238,12 +242,6 @@ const TableComponent = () => {
             {"Next"}
           </button>
         </span>
-      </div>
-      <div className="pagination-select">
-        <SelectForm
-          options={paginationSizeOptions}
-          onChange={pagination.fns.onSetSize}
-        />
       </div>
     </div>
   );
