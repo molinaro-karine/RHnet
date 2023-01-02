@@ -8,6 +8,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../index.css";
 //css
 
+/**
+ * It's a React component that renders a date picker.
+ * @param props - {
+ * @returns A React component.
+ */
 const DatePickerComponent = (props) => {
   const [pickedDate, setPickedDate] = useState();
 

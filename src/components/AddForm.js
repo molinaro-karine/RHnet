@@ -2,17 +2,22 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { add } from "../redux/employeeSlice";
 
 //components
 import DatePickerComponent from "./DatePicker";
-import Modal from "./Modal";
+//import Modal from "./Modal";
 import { registerSchema } from "./schema/formSchema";
 import SelectForm from "./SelectForm";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { departments, states } from "../data/dataStates";
 import DatePickerOfBirth from "./DatePickerOfBirth";
+import { ModalComponent } from "./ModalComponent";
 
+/**
+ * The AddForm function is a React component that uses the useForm hook to create a form that validates
+ * the input using the yupResolver function.
+ */
 const AddForm = () => {
   const {
     register,
@@ -22,7 +27,7 @@ const AddForm = () => {
     resolver: yupResolver(registerSchema),
   });
 
-  // change structure of state options object to make it work with select
+  /* change structure of state options object to make it work with select. */
   const statesToUse = states.map((state) => {
     return {
       value: state.abbreviation,
@@ -35,6 +40,7 @@ const AddForm = () => {
 
   const dispatch = useDispatch();
 
+  /* Setting the initial state of the form. */
   const initialEmployeeInfo = {
     firstName: "",
     lastName: "",
@@ -48,6 +54,10 @@ const AddForm = () => {
   };
   const [employeeInfo, setEmployeeInfo] = useState(initialEmployeeInfo);
 
+  /**
+   * The handleChange function is used to update the state of the employeeInfo object.
+   * @param event - The event that triggered the function.
+   */
   const handleChange = (event) => {
     setEmployeeInfo({
       ...employeeInfo,
@@ -55,14 +65,22 @@ const AddForm = () => {
     });
   };
 
+  /**
+   * It dispatches an action to add the employee info to the store, sets the modal to visible, resets the
+   * employee info to the initial state, and resets the form key.
+   */
   const formSubmitHandler = () => {
     dispatch(add({ ...employeeInfo, id: new Date().getTime() }));
     setisVisibleModal(true);
     setEmployeeInfo(initialEmployeeInfo);
     setResetFormKey(!resetFormKey);
-    console.log(resetFormKey);
   };
 
+  /**
+   * When the user selects a new state, update the state of the employeeInfo object with the new
+   * selection.
+   * @param newSelection - the new value of the select box
+   */
   const handleStateOptionChange = (newSelection) => {
     setEmployeeInfo({ ...employeeInfo, state: newSelection });
   };
@@ -96,10 +114,8 @@ const AddForm = () => {
             value={employeeInfo.firstName}
             onChange={(e) => handleChange(e)}
           />
-          {errors.firstName ? (
+          {errors.firstName && (
             <span className="text-red-900">{errors.firstName.message}</span>
-          ) : (
-            <></>
           )}
         </div>
         <div>
@@ -118,10 +134,8 @@ const AddForm = () => {
             value={employeeInfo.lastName}
             onChange={(e) => handleChange(e)}
           />
-          {errors.lastName ? (
-            <span className="text-red-900">{errors.lastName.message}</span>
-          ) : (
-            <></>
+          {errors.firstName && (
+            <span className="text-red-900">{errors.firstName.message}</span>
           )}
         </div>
         <div>
@@ -266,7 +280,7 @@ const AddForm = () => {
           >
             Save
           </button>
-          <Modal
+          <ModalComponent
             isVisible={isVisibleModal}
             message={"Employee Created!"}
             handleClose={() => setisVisibleModal(false)}

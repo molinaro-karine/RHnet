@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { mockData } from "../data/mockData";
 
+/* Creating a slice of the state. */
 export const employeeSlice = createSlice({
   name: "employee",
   initialState: {

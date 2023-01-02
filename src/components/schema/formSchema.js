@@ -1,21 +1,25 @@
 import * as yup from "yup";
-//import moment from "moment";
-//const today = new Date();
 
+/* Validation schema for the form. */
 export const registerSchema = yup.object().shape({
   firstName: yup
-    .string("firstName should be a string")
+    .string("")
+    .min(3)
+    .max(50)
     .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field ")
     .required("firstName is required"),
 
   lastName: yup
-    .string("lastName should be a string")
+    .string("")
+    .min(3)
+    .max(50)
     .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field ")
     .required("remplir"),
 
-  street: yup.string().max(600).required("please enter a valid address"),
+  street: yup.string().max(250).required("please enter a valid address"),
 
-  city: yup.string().max(600).required("please enter a valid address"),
+  city: yup.string().max(50).required("please enter a valid address"),
+  //state: yup.string().required("please select state"),
 
   zipCode: yup
     .string()

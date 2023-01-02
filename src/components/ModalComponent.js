@@ -1,6 +1,6 @@
 import React from "react";
-import Modal from "./Modal";
-import "./modal.css";
+import { Modal } from "simple-component-modal-bykm";
+import "./modalComponent.css";
 
 export function ModalComponent(props) {
   return (

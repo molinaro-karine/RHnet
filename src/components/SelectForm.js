@@ -2,6 +2,11 @@ import { useState } from "react";
 import Select from "react-select";
 import React from "react";
 
+/**
+ * It's a React component that renders a dropdown menu.
+ * @param props - {
+ * @returns The SelectForm component is being returned.
+ */
 export default function SelectForm(props) {
   const [selection, setSelection] = useState(props.options[0]);
   const handleChange = (newSelection) => {

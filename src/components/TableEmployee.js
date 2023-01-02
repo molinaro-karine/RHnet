@@ -21,6 +21,7 @@ import { useSelector } from "react-redux";
 import SelectForm from "./SelectForm";
 //styles
 import "./tableEmployee.css";
+
 const TableComponent = () => {
   const employeeList = useSelector((state) => state.employee.list);
 
@@ -47,6 +48,7 @@ const TableComponent = () => {
     },
   ];
   // pagination nb de pages + state changement de page
+  /* Setting the initial state of the pagination. */
   const pagination = usePagination(data, {
     state: {
       page: 0,
@@ -75,7 +77,7 @@ const TableComponent = () => {
     },
   ]);
 
-  // filter data by search value
+  /* Filtering the data based on the search value. */
   data = {
     nodes: data.nodes.filter((row) => {
       // combine all values from row into 1 string
@@ -88,6 +90,7 @@ const TableComponent = () => {
     }),
   };
 
+  /* Showing the number of entries in the table. */
   const showingFrom =
     data.nodes.length > 0
       ? pagination.state.page * pagination.state.size + 1
@@ -97,7 +100,7 @@ const TableComponent = () => {
       ? (pagination.state.page + 1) * pagination.state.size
       : data.nodes.length;
 
-  // sort
+  /* Sorting the data by the column name. */
   const sort = useSort(data, null, {
     sortFns: {
       firstName: (array) =>
@@ -212,8 +215,8 @@ const TableComponent = () => {
         )}
       </Table>
       <div
-        className="pagination-bar relative"
         /* A style object. */
+        className="pagination-bar relative"
         style={{ display: "flex", justifyContent: "space-between" }}
       >
         <span className="mt-10 mb-10 px-3 py-2 ml-0 leading-tight text-white-500  border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -237,6 +240,8 @@ const TableComponent = () => {
               pagination.state.page + 1 ===
                 pagination.state.getTotalPages(data.nodes)
             }
+            /* A function that is called when the button is clicked. It is a function that is passed to
+          the button as a prop. */
             onClick={() => pagination.fns.onSetPage(pagination.state.page + 1)}
           >
             {"Next"}
