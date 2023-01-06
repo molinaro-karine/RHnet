@@ -19,11 +19,11 @@
     "react-scripts": "^5.0.1",
     "react-select": "^5.7.0",
     "s-component-modal": "^0.1.1",
-    "simple-component-modal-bykm": "^0.1.0",
+    "simple-component-modal-bykm": "^0.1.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm run build:css && react-scripts start",
+    "start": "react-scripts start",
     "build": "npm run build:css && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

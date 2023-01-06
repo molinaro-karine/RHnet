@@ -8595,10 +8595,10 @@ signal-exit@^3.0.2, signal-exit@^3.0.3:
   resolved "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.7.tgz"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
 
-simple-component-modal-bykm@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/simple-component-modal-bykm/-/simple-component-modal-bykm-0.1.0.tgz"
-  integrity sha512-wVyMTs/zbVhPEWqtY9YZlOx0FfI9YhUfyGQS9zAMu4P3NZ7IMTq1m8JIiSBm+su9QwmDcCD9CRMA6ECQ3UTrYg==
+simple-component-modal-bykm@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/simple-component-modal-bykm/-/simple-component-modal-bykm-0.1.1.tgz"
+  integrity sha512-LmBBxo3ni9wWumai0Bl/lQUk+7si7jJwDvxeEKxmeGg97YCcSnRKAmU6O2wfL/UMIfRy/+7bCyCZku8eIkoX7A==
   dependencies:
     "@babel/core" "^7.20.7"
     "@testing-library/jest-dom" "^5.16.5"

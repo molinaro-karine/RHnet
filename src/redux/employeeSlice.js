@@ -14,5 +14,6 @@ export const employeeSlice = createSlice({
   },
 });
 
+/* Exporting the reducer and the action. */
 export const { add } = employeeSlice.actions;
 export default employeeSlice.reducer;

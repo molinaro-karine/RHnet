@@ -7,13 +7,12 @@ import { add } from "../redux/employeeSlice";
 
 //components
 import DatePickerComponent from "./DatePicker";
-//import Modal from "./Modal";
 import { registerSchema } from "./schema/formSchema";
 import SelectForm from "./SelectForm";
-import { departments, states } from "../data/dataStates";
 import DatePickerOfBirth from "./DatePickerOfBirth";
 import { ModalComponent } from "./ModalComponent";
 
+import { departments, states } from "../data/dataStates";
 /**
  * The AddForm function is a React component that uses the useForm hook to create a form that validates
  * the input using the yupResolver function.
@@ -153,11 +152,6 @@ const AddForm = () => {
             }
             value={employeeInfo.dateOfBirth}
           />
-          {errors.dateOfBirth ? (
-            <span className="text-red-900">{errors.dateOfBirth.message}</span>
-          ) : (
-            <></>
-          )}
         </div>
         <div>
           <label

@@ -22,6 +22,10 @@ import SelectForm from "./SelectForm";
 //styles
 import "./tableEmployee.css";
 
+/**
+ * It's a function that returns a table component.
+ */
+
 const TableComponent = () => {
   const employeeList = useSelector((state) => state.employee.list);
 

@@ -7,19 +7,18 @@ export const registerSchema = yup.object().shape({
     .min(3)
     .max(50)
     .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field ")
-    .required("firstName is required"),
+    .required("FirstName is required"),
 
   lastName: yup
     .string("")
     .min(3)
     .max(50)
     .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field ")
-    .required("remplir"),
+    .required("LasstName is required"),
 
   street: yup.string().max(250).required("please enter a valid address"),
 
   city: yup.string().max(50).required("please enter a valid address"),
-  //state: yup.string().required("please select state"),
 
   zipCode: yup
     .string()
